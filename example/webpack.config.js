@@ -15,7 +15,7 @@ const getPublicPath = () => {
   ) {
     return '/'
   }
-  return '/react-music-player'
+  return '/Music'
 }
 
 module.exports = () => {
