@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const pkg = require('./package.json')
 
@@ -74,5 +75,9 @@ module.exports = {
       minimize: true,
     }),
     process.env.ANALYZER && new BundleAnalyzerPlugin(),
+    new HtmlWebpackPlugin({ 
+      template: path.resolve(__dirname, 'example/index.html'), // Use your existing index.html as a template
+      filename: 'index.html', // This will generate the index.html in the dist folder
+    }),
   ].filter(Boolean),
 }
