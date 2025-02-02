@@ -15,7 +15,7 @@ const getPublicPath = () => {
   ) {
     return '/'
   }
-  return '/Music'
+  return '/Music/'
 }
 
 module.exports = () => {
@@ -118,8 +118,22 @@ module.exports = () => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, '../example/index.html'),
-      }),
+        templateContent: `
+          <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Webpack Test</title>
+            </head>
+            <body>
+              <div id="root"></div>
+              <script src="main.js"></script>
+            </body>
+          </html>
+        `,
+        filename: 'index.html', // This ensures the generated file is named index.html
+      }),      
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       }),
