@@ -1,5 +1,6 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
@@ -117,21 +118,11 @@ module.exports = () => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new CopyPlugin({
+        patterns: [{ from: ".nojekyll", to: "." }],
+      }),
       new HtmlWebpackPlugin({
-        templateContent: `
-          <!DOCTYPE html>
-          <html lang="en">
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>Webpack Test</title>
-            </head>
-            <body>
-              <div id="root"></div>
-              <script src="main.js"></script>
-            </body>
-          </html>
-        `,
+        template: path.join(__dirname, '../example/index.html'),
         filename: 'index.html', // This ensures the generated file is named index.html
       }),      
       new webpack.DefinePlugin({
